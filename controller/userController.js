@@ -27,8 +27,10 @@ module.exports.getUser = async (req, res) => {
        const user = await User.find({});
          event.emit("run")
          return res.status(200).json({
+            id:process.pid,
             message: "Your Users",
-            Users: user
+            Users: user,
+
          })     
    } catch (err) {
       console.log("there is error with Getting All User!!", err);
