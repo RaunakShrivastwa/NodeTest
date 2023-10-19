@@ -11,12 +11,13 @@ const ejs = require('ejs');
 const path = require('path')
 const passportGoogle = require('./config/passport-google')
 const dotenv = require('dotenv');
-const cpu = require('os');
-const cluster = require('cluster')
+const cluster = require('cluster');
+const os = require('os')
+
 if (cluster.isPrimary) {
-    for(let i=0;i<cpu.cpus().length;i++){
-      cluster.fork();
-    }
+  for (let i = 0; i < os.cpus().length; i++) {
+    cluster.fork();
+  }
 }
 else {
   const app = express();
@@ -31,8 +32,6 @@ else {
   //     res.status(403).json({ Message: "Access Denie", UsingTool: userAgent })
   //   }
   // });
-
-
   app.use(parser.json())
   app.use(cookie())
   app.use(session({
